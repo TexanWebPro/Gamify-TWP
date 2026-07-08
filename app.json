@@ -37,6 +37,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e0ffe6e7-0d67-41fa-8342-4de6380dd2b3"
+      }
+    },
+    "owner": "texanwebpro"
   }
 }
