@@ -1,16 +1,44 @@
 import { format } from "date-fns";
+import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
+  const businessName = "Texan Web Pro";
   const currentMonth = new Date();
   const currentRevenue = 0;
   const percentage = 0;
   const target = 9000;
-  const outreachTotal = 0;
+  const [outreachTotal, setOutreachTotal] = useState(0);
+  const [repliesTotal, setRepliesTotal] = useState(0);
+  const [callsBookedTotal, setCallsBookedTotal] = useState(0);
+  const [dealsClosedTotal] = useState(0);
+  const [seoTotal, setSeoTotal] = useState(0);
+
+  function handleOutreachPress() {
+    return setOutreachTotal(outreachTotal + 1);
+  }
+
+  function handleRepliesPress() {
+    return setRepliesTotal(repliesTotal + 1);
+  }
+
+  function handleCallsBookedPress() {
+    return setCallsBookedTotal(callsBookedTotal + 1);
+  }
+
+  function handleDealsBookedPress() {
+    return true;
+    // open deal modal
+  }
+
+  function handleSeoPress() {
+    return setSeoTotal(seoTotal + 1);
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Text style={styles.headerText}>{businessName}</Text>
         <Text style={styles.headerText}>
           {format(currentMonth, "MMMM yyyy")}
         </Text>
@@ -28,30 +56,39 @@ export default function Index() {
           <Text style={styles.overviewItemText}>Total Outreach</Text>
           <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
         </View>
-        <View style={styles.overviewItem}>
+        <TouchableOpacity
+          style={styles.overviewItem}
+          onPress={handleRepliesPress}
+        >
           <Text style={styles.overviewItemText}>Total Replies</Text>
-          <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
-        </View>
-        <View style={styles.overviewItem}>
+          <Text style={styles.overviewItemNumber}>{repliesTotal}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.overviewItem}
+          onPress={handleCallsBookedPress}
+        >
           <Text style={styles.overviewItemText}>Calls Booked</Text>
-          <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
-        </View>
-        <View style={styles.overviewItem}>
+          <Text style={styles.overviewItemNumber}>{callsBookedTotal}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.overviewItem}
+          onPress={handleDealsBookedPress}
+        >
           <Text style={styles.overviewItemText}>Deals Closed</Text>
-          <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
-        </View>
+          <Text style={styles.overviewItemNumber}>{dealsClosedTotal}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.overview}>
         <View style={styles.overviewItem}>
           <Text style={styles.overviewItemText}>Website SEO</Text>
-          <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
+          <Text style={styles.overviewItemNumber}>{seoTotal}</Text>
         </View>
         <View style={styles.overviewItem}>
           <Text style={styles.overviewItemText}>New Projects</Text>
           <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
         </View>
         <View style={styles.overviewItem}>
-          <Text style={styles.overviewItemText}>Projects Closed</Text>
+          <Text style={styles.overviewItemText}>Projects Finished</Text>
           <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
         </View>
         <View style={styles.overviewItem}>
@@ -65,24 +102,26 @@ export default function Index() {
         <View style={styles.action}>
           <Text style={styles.actionText}>Website</Text>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Article Published</Text>
+            <Text style={styles.buttonText} onPress={handleSeoPress}>
+              Article Published
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSeoPress}>
             <Text style={styles.buttonText}>Tool Made</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSeoPress}>
             <Text style={styles.buttonText}>Fix Patched</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.action}>
           <Text style={styles.actionText}>In-Person</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
             <Text style={styles.buttonText}>Event Attended</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
             <Text style={styles.buttonText}>Call Made</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
             <Text style={styles.buttonText}>Card Given</Text>
           </TouchableOpacity>
         </View>
@@ -91,25 +130,37 @@ export default function Index() {
         <View style={styles.action}>
           <Text style={styles.actionText}>Instagram</Text>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>DM Sent</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              DM Sent
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Comment Left</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              Comment Left
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Account Followed</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              Account Followed
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.action}>
           <Text style={styles.actionText}>LinkedIn</Text>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>DM Sent</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              DM Sent
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Comment Left</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              Comment Left
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Invite Sent</Text>
+            <Text style={styles.buttonText} onPress={handleOutreachPress}>
+              Invite Sent
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
