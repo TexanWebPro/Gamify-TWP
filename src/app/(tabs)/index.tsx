@@ -1,61 +1,42 @@
+import { DashboardGrid } from "@/components/dashboard/DashboardGrid";
+import { DashboardQuickAddDrawer } from "@/components/dashboard/DashboardQuickAddDrawer";
+import { MaterialIcons } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   const businessName = "Texan Web Pro";
   const currentMonth = new Date();
-  const currentRevenue = 0;
-  const percentage = 0;
-  const target = 9000;
-  const [outreachTotal, setOutreachTotal] = useState(0);
-  const [repliesTotal, setRepliesTotal] = useState(0);
-  const [callsBookedTotal, setCallsBookedTotal] = useState(0);
-  const [dealsClosedTotal] = useState(0);
-  const [seoTotal, setSeoTotal] = useState(0);
 
-  function handleOutreachPress() {
-    return setOutreachTotal(outreachTotal + 1);
-  }
-
-  function handleRepliesPress() {
-    return setRepliesTotal(repliesTotal + 1);
-  }
-
-  function handleCallsBookedPress() {
-    return setCallsBookedTotal(callsBookedTotal + 1);
-  }
-
-  function handleDealsBookedPress() {
-    return true;
-    // open deal modal
-  }
-
-  function handleSeoPress() {
-    return setSeoTotal(seoTotal + 1);
-  }
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>{businessName}</Text>
-        <Text style={styles.headerText}>
-          {format(currentMonth, "MMMM yyyy")}
-        </Text>
-      </View>
-      <View style={styles.summary}>
-        <Text style={styles.currentRevenue}>${currentRevenue}</Text>
-        <View style={styles.summaryBottom}>
-          <Text style={styles.summaryText}>{percentage}% of target</Text>
-          <Text style={styles.summaryText}>target: ${target}</Text>
+        <View>
+          <Text style={styles.headerText}>{businessName}</Text>
+          <Text style={styles.headerText}>
+            {format(currentMonth, "MMMM yyyy")}
+          </Text>
         </View>
+        <MaterialIcons
+          name="add"
+          size={24}
+          color="black"
+          onPress={() => setDrawerOpen(true)}
+        />
       </View>
-      <Text style={styles.overviewItemHeader}>Activity Overview</Text>
-      <View style={styles.overview}>
-        <View style={styles.overviewItem}>
-          <Text style={styles.overviewItemText}>Total Outreach</Text>
-          <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
-        </View>
+
+      <DashboardGrid />
+
+      <DashboardQuickAddDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
+
+      {/* <View style={styles.overview}>
+        
         <TouchableOpacity
           style={styles.overviewItem}
           onPress={handleRepliesPress}
@@ -95,75 +76,7 @@ export default function Index() {
           <Text style={styles.overviewItemText}>Recurring Clients</Text>
           <Text style={styles.overviewItemNumber}>{outreachTotal}</Text>
         </View>
-      </View>
-
-      <Text style={styles.overviewItemHeader}>Actions</Text>
-      <View style={styles.actions}>
-        <View style={styles.action}>
-          <Text style={styles.actionText}>Website</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleSeoPress}>
-              Article Published
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleSeoPress}>
-            <Text style={styles.buttonText}>Tool Made</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleSeoPress}>
-            <Text style={styles.buttonText}>Fix Patched</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.action}>
-          <Text style={styles.actionText}>In-Person</Text>
-          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
-            <Text style={styles.buttonText}>Event Attended</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
-            <Text style={styles.buttonText}>Call Made</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleOutreachPress}>
-            <Text style={styles.buttonText}>Card Given</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.actions}>
-        <View style={styles.action}>
-          <Text style={styles.actionText}>Instagram</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              DM Sent
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              Comment Left
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              Account Followed
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.action}>
-          <Text style={styles.actionText}>LinkedIn</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              DM Sent
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              Comment Left
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleOutreachPress}>
-              Invite Sent
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -228,75 +141,16 @@ const styles = StyleSheet.create({
     minHeight: 900,
   },
   header: {
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     margin: 8,
   },
   headerText: {
     color: "#26519F",
     textTransform: "uppercase",
     fontWeight: "bold",
-  },
-  summary: {
-    backgroundColor: "#26519F",
-    borderColor: "#26519F",
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 8,
-    margin: 8,
-    display: "flex",
-    flexDirection: "column",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  summaryText: {
-    color: "#afc6ff",
-  },
-  summaryBottom: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  currentRevenue: {
-    color: "#fff",
-    fontSize: 36,
-    textAlign: "center",
-    fontWeight: 800,
-  },
-  overview: {
-    display: "flex",
-    flexDirection: "row",
-    alignContent: "center",
-    justifyContent: "space-between",
-    margin: 8,
-  },
-  overviewItemHeader: {
-    color: "#26519F",
-    textAlign: "center",
-    fontSize: 16,
-    marginVertical: 8,
-    textTransform: "uppercase",
-    fontWeight: "600",
-  },
-  overviewItem: {
-    backgroundColor: "#ffe4bf",
-    padding: 8,
-    borderRadius: 12,
-    borderColor: "#ffdeac",
-    borderWidth: 2,
-    width: 100,
-  },
-  overviewItemText: {
-    color: "#26519F",
-    textAlign: "center",
-    fontSize: 12,
-    marginBottom: 8,
-    textTransform: "uppercase",
-    fontWeight: "600",
-  },
-  overviewItemNumber: {
-    color: "#000",
-    textAlign: "center",
-    fontSize: 24,
   },
   actions: {
     display: "flex",
